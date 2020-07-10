@@ -1,15 +1,16 @@
 FROM postgres:9.5
 RUN set -ex \
     && { \
-      echo 'deb https://mirrors.tuna.tsinghua.edu.cn/debian/ stretch main contrib non-free'; \
-      echo 'deb https://mirrors.tuna.tsinghua.edu.cn/debian/ stretch-updates main contrib non-free'; \
-      echo 'deb https://mirrors.tuna.tsinghua.edu.cn/debian/ stretch-backports main contrib non-free'; \
-      echo 'deb https://mirrors.tuna.tsinghua.edu.cn/debian-security stretch/updates main contrib non-free'; \
+      echo 'deb http://mirrors.aliyun.com/debian stretch main contrib non-free'; \
+      echo 'deb http://mirrors.aliyun.com/debian stretch-proposed-updates main contrib non-free'; \
+      echo 'deb http://mirrors.aliyun.com/debian stretch-updates main contrib non-free'; \
+      echo 'deb http://mirrors.aliyun.com/debian-security/ stretch/updates main non-free contrib'; \
     } | tee /etc/apt/sources.list \
     && sed -i 's/deb/# deb/g' /etc/apt/sources.list.d/pgdg.list
-    
-RUN apt-get update && \
-  apt-get install -y --no-install-recommends \
+
+RUN set -ex && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
     curl \
 	  ca-certificates \
 	  build-essential \
