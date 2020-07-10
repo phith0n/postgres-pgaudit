@@ -1,4 +1,13 @@
 FROM postgres:10.11
+RUN set -ex \
+    && { \
+      echo 'deb https://mirrors.tuna.tsinghua.edu.cn/debian/ stretch main contrib non-free'; \
+      echo 'deb https://mirrors.tuna.tsinghua.edu.cn/debian/ stretch-updates main contrib non-free'; \
+      echo 'deb https://mirrors.tuna.tsinghua.edu.cn/debian/ stretch-backports main contrib non-free'; \
+      echo 'deb https://mirrors.tuna.tsinghua.edu.cn/debian-security stretch/updates main contrib non-free'; \
+    } | tee /etc/apt/sources.list \
+    && sed -i 's/deb/# deb/g' /etc/apt/sources.list.d/pgdg.list
+
 RUN apt-get update && \
   apt-get install -y --no-install-recommends \
     curl \
