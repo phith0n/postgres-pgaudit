@@ -5,8 +5,7 @@ RUN set -ex \
       echo 'deb http://mirrors.aliyun.com/debian stretch-proposed-updates main contrib non-free'; \
       echo 'deb http://mirrors.aliyun.com/debian stretch-updates main contrib non-free'; \
       echo 'deb http://mirrors.aliyun.com/debian-security/ stretch/updates main non-free contrib'; \
-    } | tee /etc/apt/sources.list \
-    && sed -i 's/deb/# deb/g' /etc/apt/sources.list.d/pgdg.list
+    } | tee /etc/apt/sources.list
 
 RUN set -ex && \
     apt-get update && \
